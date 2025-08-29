@@ -1,4 +1,4 @@
-name: Node.js CICD  
+name: Node.js CICD
 
 on:
   push:
@@ -19,25 +19,24 @@ jobs:
         with:
           node-version: '20'
 
-      - name: Frontend Install & Syntax Check
+      # Frontend Syntax Check
+      - name: Frontend Syntax Check
         run: |
           cd client
-          npm install
           find . -type f -name "*.js" -exec node --check {} \;
 
-      - name: Frontend Lint & Build
-        run: |
-          cd client
-          npm run lint
-          npm run build
-
-      - name: Backend Install & Syntax Check
+      # Backend Syntax Check
+      - name: Backend Syntax Check
         run: |
           cd api
-          npm install
           find . -type f -name "*.js" -exec node --check {} \;
 
-      - name: Backend Lint
+      # Frontend Build
+      - name: Frontend Build
         run: |
+          cd client
+          npm install
+          npm run build
+
           cd api
           npm run lint
