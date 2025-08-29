@@ -8,7 +8,7 @@ on:
 
 jobs:
   compile:
-    runs-on: Agent-1
+    runs-on: [self-hosted, label-1]
 
     steps:
       - name: Checkout code
@@ -19,32 +19,28 @@ jobs:
         with:
           node-version: '20'
 
-      # 1. Pure Syntax Check
-      - name: Frontend Syntax Check
-        run: |
-          cd client
-          find . -type f -name "*.js" -exec node --check {} \;
-
-      - name: Backend Syntax Check
-        run: |
-          cd api
-          find . -type f -name "*.js" -exec node --check {} \;
-
-      # 2. Lint
-      - name: Frontend Lint
+      # Frontend
+      - name: Frontend Install & Syntax Check
         run: |
           cd client
           npm install
+          find . -type f -name "*.js" -exec node --check {} \;
+
+      - name: Frontend Lint & Build
+        run: |
+          cd client
           npm run lint
+          npm run build
+
+      # Backend
+      - name: Backend Install & Syntax Check
+        run: |
+          cd api
+          npm install
+          find . -type f -name "*.js" -exec node --check {} \;
 
       - name: Backend Lint
         run: |
           cd api
-          npm install
           npm run lint
 
-      # 3. Build (Optional but Strong)
-      - name: Frontend Build
-        run: |
-          cd client
-          npm run build
