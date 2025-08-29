@@ -19,7 +19,6 @@ jobs:
         with:
           node-version: '20'
 
-      # Frontend
       - name: Frontend Install & Syntax Check
         run: |
           cd client
@@ -32,7 +31,6 @@ jobs:
           npm run lint
           npm run build
 
-      # Backend
       - name: Backend Install & Syntax Check
         run: |
           cd api
@@ -43,4 +41,3 @@ jobs:
         run: |
           cd api
           npm run lint
-
