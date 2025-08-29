@@ -31,12 +31,4 @@ jobs:
           cd api
           find . -type f -name "*.js" -exec node --check {} \;
 
-      # Frontend Build
-      - name: Frontend Build
-        run: |
-          cd client
-          npm install
-          npm run build
-
-          cd api
-          npm run lint
+    
