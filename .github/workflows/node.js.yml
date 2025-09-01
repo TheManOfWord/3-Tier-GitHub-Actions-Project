@@ -50,16 +50,17 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v4
 
-    - name: Install Trivy
-      uses: aquasecurity/trivy-action@v2
+    - name: Set up Trivy
+      uses: aquasecurity/setup-trivy@v0.2.3
       with:
-        version: 'latest'
+        version: 'v0.61.0'
 
     - name: Scan frontend dependencies
       run: trivy fs ./client --exit-code 1 --severity HIGH,CRITICAL
 
     - name: Scan backend dependencies
       run: trivy fs ./api --exit-code 1 --severity HIGH,CRITICAL
+
 
 
 
