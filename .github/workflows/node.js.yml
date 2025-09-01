@@ -42,6 +42,25 @@ jobs:
       uses: gitleaks/gitleaks-action@v2
       env:
         GITLEAKS_ARGS: detect --source . --exit-code 1
+        
+  trivy-scan:
+   runs-on: [self-hosted, label-1]
+   needs: compile
+   steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Install Trivy
+      uses: aquasecurity/trivy-action@v2
+      with:
+        version: 'latest'
+
+    - name: Scan frontend dependencies
+      run: trivy fs ./client --exit-code 1 --severity HIGH,CRITICAL
+
+    - name: Scan backend dependencies
+      run: trivy fs ./api --exit-code 1 --severity HIGH,CRITICAL
+
 
 
 
