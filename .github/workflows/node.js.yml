@@ -41,12 +41,12 @@ jobs:
     - name: Run Gitleaks on client
       uses: gitleaks/gitleaks-action@v2
       env:
-        GITLEAKS_ARGS: detect --source ./client --exit-code 1 --report-path gitleaks-client.sarif
+       GITLEAKS_ARGS: detect --source ./client --exit-code 1 --report-path gitleaks-client.sarif
 
     - name: Run Gitleaks on api
       uses: gitleaks/gitleaks-action@v2
       env:
-        GITLEAKS_ARGS: detect --source ./api --exit-code 1 --report-path gitleaks-api.sarif
+       GITLEAKS_ARGS: detect --source ./api --exit-code 1 --report-path gitleaks-api.sarif
 
 
 
