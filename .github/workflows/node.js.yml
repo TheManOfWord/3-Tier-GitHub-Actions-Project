@@ -32,21 +32,17 @@ jobs:
           find . -type f -name "*.js" -exec node --check {} \;
           
   gitleaks-scan:
-    runs-on: [self-hosted, label-1]
-    needs: compile
-    steps:
-     - name: Checkout code
-       uses: actions/checkout@v4
+   runs-on: [self-hosted, label-1]
+   needs: compile
+   steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
 
-     - name: Run Gitleaks on client
-       uses: gitleaks/gitleaks-action@v2
-       with:
-        args: detect --source ./client --exit-code 1
+    - name: Run Gitleaks on entire repo
+      uses: zricethezav/gitleaks-action@v8
+      with:
+        args: detect --source . --exit-code 1
 
-     - name: Run Gitleaks on api
-       uses: gitleaks/gitleaks-action@v2
-       with:
-        args: detect --source ./api --exit-code 1
 
 
       
