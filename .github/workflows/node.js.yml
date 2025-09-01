@@ -59,10 +59,11 @@ jobs:
       run: trivy fs ./client --severity HIGH,CRITICAL -f table -o trivy-client-report.txt || true
 
     - name: Upload Trivy report
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
        name: trivy-client-report
        path: trivy-client-report.txt
+
 
 
 
