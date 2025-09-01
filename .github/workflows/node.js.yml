@@ -38,15 +38,10 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v4
 
-    - name: Run Gitleaks on client
+    - name: Run Gitleaks on entire repo
       uses: gitleaks/gitleaks-action@v2
       env:
-       GITLEAKS_ARGS: detect --source ./client --exit-code 1 --report-path gitleaks-client.sarif
-
-    - name: Run Gitleaks on api
-      uses: gitleaks/gitleaks-action@v2
-      env:
-       GITLEAKS_ARGS: detect --source ./api --exit-code 1 --report-path gitleaks-api.sarif
+        GITLEAKS_ARGS: detect --source . --exit-code 1
 
 
 
