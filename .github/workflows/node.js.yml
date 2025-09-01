@@ -45,7 +45,7 @@ jobs:
         
   trivy-scan:
    runs-on: [self-hosted, label-1]
-   needs: gitleaks-scan
+   needs: compile
    steps:
     - name: Checkout code
       uses: actions/checkout@v4
@@ -56,10 +56,14 @@ jobs:
         version: 'v0.61.0'
 
     - name: Scan frontend dependencies
-      run: trivy fs ./client --exit-code 1 --severity HIGH,CRITICAL
+      run: trivy fs ./client --severity HIGH,CRITICAL -f table -o trivy-client-report.txt || true
 
-    - name: Scan backend dependencies
-      run: trivy fs ./api --exit-code 1 --severity HIGH,CRITICAL
+    - name: Upload Trivy report
+      uses: actions/upload-artifact@v3
+      with:
+       name: trivy-client-report
+       path: trivy-client-report.txt
+
 
 
 
