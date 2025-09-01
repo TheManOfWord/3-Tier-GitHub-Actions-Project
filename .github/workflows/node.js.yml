@@ -45,7 +45,7 @@ jobs:
         
   trivy-scan:
    runs-on: [self-hosted, label-1]
-   needs: compile
+   needs: gitleaks-scan
    steps:
     - name: Checkout code
       uses: actions/checkout@v4
